@@ -2,13 +2,13 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-
-
 public class shot : MonoBehaviour
 {
     public GameObject gameMode;
 
     public float MaxForce = 4000;
+
+    public float MaxSpeed;
 
     public float ForceScale = 500;
 
@@ -20,6 +20,8 @@ public class shot : MonoBehaviour
     void Start()
     {
         InitPos = transform.position;
+        Rigidbody rigBody = GetComponent<Rigidbody>();
+        rigBody.maxAngularVelocity = MaxSpeed;
     }
 
     // Update is called once per frameS
@@ -30,8 +32,9 @@ public class shot : MonoBehaviour
         mousePos = Camera.main.ScreenToWorldPoint(mousePos);
         if (Mode.State == GameMode.GameState.Ready)
         {
-            transform.position = new Vector3(transform.position.x, mousePos.y, transform.position.z);
-            if(Input.GetMouseButtonDown(0))   
+            float ypos = Mathf.Clamp(mousePos.y, -14.0f, 17.0f);
+            transform.position = new Vector3(transform.position.x, ypos, transform.position.z);
+            if (Input.GetMouseButtonDown(0))
             {
                 Mode.State = GameMode.GameState.Shot;
             }
@@ -56,7 +59,12 @@ public class shot : MonoBehaviour
                 rigBody.AddForce(ShotVec);
                 Mode.State = GameMode.GameState.Shoting;
                 bReadlyShot = false;
+                GetComponent<TrailRenderer>().enabled = true;
             }
+        }
+        else if (Mode.State == GameMode.GameState.Shoting)
+        {
+
         }
     }
 

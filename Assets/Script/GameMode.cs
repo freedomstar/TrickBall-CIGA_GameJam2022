@@ -14,6 +14,8 @@ public class GameMode : MonoBehaviour
         Over,
     };
 
+    public int Level = 0;
+
     public GameObject Shotball;
 
     public GameObject pickObject;
@@ -88,6 +90,8 @@ public class GameMode : MonoBehaviour
         {
             Shotball.GetComponent<shot>().ResetPos();
         }
+
+        CloseShotballTrail();
     }
 
     public void SwitchReadyState()
@@ -96,6 +100,7 @@ public class GameMode : MonoBehaviour
         State = GameState.Ready;
         pickObject = null;
         ResetComboCount();
+        CloseShotballTrail();
     }
 
     public void DestroyPickObject()
@@ -103,7 +108,7 @@ public class GameMode : MonoBehaviour
         if (pickObject != null)
         {
             Obstacles.Remove(pickObject);
-            pickObject.GetComponentInParent<ObstacleSample>().Count--;
+            pickObject.GetComponent<Obstacle>().Sample.Count--;
             Destroy(pickObject);
             pickObject = null;
         }
@@ -131,5 +136,17 @@ public class GameMode : MonoBehaviour
     {
         ComboCount = 0;
         ComboText.text = ComboCount.ToString();
+    }
+
+    public void CloseShotballTrail() 
+    {
+        Shotball.GetComponent<TrailRenderer>().enabled = false;
+    }
+
+    public void SwitchOverState() 
+    {
+        State = GameState.Over;
+        Level++;
+        SwitchPlaceState();
     }
 }

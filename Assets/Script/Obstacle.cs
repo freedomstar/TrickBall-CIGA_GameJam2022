@@ -15,6 +15,8 @@ public class Obstacle : MonoBehaviour
 
     const float deflastMouseXpos = -1234565.0f;
 
+    public ObstacleSample Sample;
+
     private float lastMouseXpos = -1234565.0f;
     // Start is called before the first frame update
     void Start()
@@ -25,7 +27,7 @@ public class Obstacle : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        if (Mode.pickObject == this.gameObject)
+        if (Mode.pickObject == gameObject)
         {
             Vector3 mousePos = new Vector3(Input.mousePosition.x, Input.mousePosition.y, Mathf.Abs(Camera.main.transform.position.z));
             mousePos = Camera.main.ScreenToWorldPoint(mousePos);
@@ -72,4 +74,5 @@ public class Obstacle : MonoBehaviour
             transform.rotation = Quaternion.Euler(this.transform.rotation.eulerAngles.x, this.transform.rotation.eulerAngles.y, this.transform.rotation.eulerAngles.z + offest);
         }
     }
+
 }
