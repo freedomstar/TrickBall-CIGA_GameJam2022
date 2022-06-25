@@ -57,10 +57,22 @@ public class shot : MonoBehaviour
                 Rigidbody rigBody = GetComponent<Rigidbody>();
                 rigBody.constraints = RigidbodyConstraints.FreezePositionZ | RigidbodyConstraints.FreezeRotationZ;
                 ShotVec = ShotVec * ForceScale;
+                float ox = ShotVec.x;
+                float yxScale = ShotVec.y / ShotVec.x;
                 ShotVec.x = Mathf.Max(ShotVec.x, -MaxForce);
                 ShotVec.x = Mathf.Min(ShotVec.x, MaxForce);
+                if (ShotVec.x != ox)
+                {
+                    ShotVec.y = ShotVec.x * yxScale;
+                }
+                float oy = ShotVec.y;
                 ShotVec.y = Mathf.Max(ShotVec.y, -MaxForce);
                 ShotVec.y = Mathf.Min(ShotVec.y, MaxForce);
+
+                if (oy != ShotVec.y)
+                {
+                    ShotVec.x = ShotVec.y / yxScale;
+                }
                 rigBody.AddForce(ShotVec);
                 Mode.State = GameMode.GameState.Shoting;
                 bReadlyShot = false;

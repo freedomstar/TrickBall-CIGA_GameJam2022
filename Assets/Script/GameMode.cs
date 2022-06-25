@@ -24,6 +24,8 @@ public class GameMode : MonoBehaviour
 
     public GameObject TargetObject;
 
+    public GameObject TargetQuad;
+
     public List<GameObject> Walls;
 
     public List<GameObject> Obstacles;
@@ -31,6 +33,10 @@ public class GameMode : MonoBehaviour
     public GameState State = GameState.Place;
 
     public Text ComboText;
+
+    public Text LevelText;
+
+    public Text TargetComboText;
 
     public int ComboCount = 0;
 
@@ -101,6 +107,7 @@ public class GameMode : MonoBehaviour
         }
         ResetWallbCollided();
         CloseShotballTrail();
+        CheckQuadColor();
     }
 
     public void SwitchReadyState()
@@ -115,6 +122,7 @@ public class GameMode : MonoBehaviour
         {
             Shotball.GetComponent<shot>().ResetPos();
         }
+        CheckQuadColor();
     }
 
     public void DestroyPickObject()
@@ -167,17 +175,19 @@ public class GameMode : MonoBehaviour
 
     public bool CheckWallCollided() 
     {
-        if (Level < LevelWallCheckCollided)
-        {
-            return true;
-        }
-        return bAllWallbCollided();
+        return true;
+        //if (Level < LevelWallCheckCollided)
+        //{
+        //    return true;
+        //}
+        //return bAllWallbCollided();
     }
 
     public void AddComboCount() 
     {
         ComboCount++;
         ComboText.text = ComboCount.ToString();
+        CheckQuadColor();
     }
 
     void ResetComboCount()
@@ -196,9 +206,12 @@ public class GameMode : MonoBehaviour
         State = GameState.Over;
         Level++;
         TargetCombo = Level * TargetComboScale;
+        LevelText.text = Level.ToString();
+        TargetComboText.text = TargetCombo.ToString();
         RandomTargetPos();
         SwitchPlaceState();
         ResetWallbCollided();
+        CheckQuadColor();
     }
 
     public bool IsFinshedCombo() 
@@ -215,4 +228,20 @@ public class GameMode : MonoBehaviour
             TargetObject.transform.position = new Vector3(x, y, 0);
         }
     }
+
+    public void CheckQuadColor() 
+    {
+        if (TargetQuad != null)
+        {
+            if (IsFinshedCombo() && CheckWallCollided())
+            {
+                TargetQuad.GetComponent<targetRota>().SetColor(true);
+            }
+            else 
+            {
+                TargetQuad.GetComponent<targetRota>().SetColor(false);
+            }
+        } 
+    }
+
 }
