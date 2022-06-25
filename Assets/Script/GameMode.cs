@@ -30,6 +30,14 @@ public class GameMode : MonoBehaviour
 
     public List<GameObject> Obstacles;
 
+    public List<GameObject> samples;
+
+    public Button DeleteButton;
+
+    public Button ResetButton;
+
+    public Button ReadyButton;
+
     public GameState State = GameState.Place;
 
     public Text ComboText;
@@ -51,6 +59,7 @@ public class GameMode : MonoBehaviour
     {
         CloseWallsCollision();
         RandomTargetPos();
+        SetLevelConfig();
     }
 
     // Update is called once per frame
@@ -98,9 +107,7 @@ public class GameMode : MonoBehaviour
     public void SwitchPlaceState()
     {
         State = GameState.Place;
-        
         SwitchCollider(false);
-
         if (Shotball != null)
         {
             Shotball.GetComponent<shot>().ResetPos();
@@ -108,6 +115,7 @@ public class GameMode : MonoBehaviour
         ResetWallbCollided();
         CloseShotballTrail();
         CheckQuadColor();
+        SetLevelConfig();
     }
 
     public void SwitchReadyState()
@@ -123,6 +131,7 @@ public class GameMode : MonoBehaviour
             Shotball.GetComponent<shot>().ResetPos();
         }
         CheckQuadColor();
+        SetLevelConfig();
     }
 
     public void DestroyPickObject()
@@ -211,10 +220,11 @@ public class GameMode : MonoBehaviour
         LevelText.text = Level.ToString();
         TargetComboText.text = TargetCombo.ToString();
         RandomTargetPos();
-        SwitchPlaceState();
         ResetWallbCollided();
         CheckQuadColor();
         ResetComboCount();
+        SetLevelConfig();
+        SwitchPlaceState();
     }
 
     public bool IsFinshedCombo() 
@@ -245,6 +255,36 @@ public class GameMode : MonoBehaviour
                 TargetQuad.GetComponent<targetRota>().SetColor(false);
             }
         } 
+    }
+
+    public void SetLevelConfig()
+    {
+        switch (Level)
+        {
+            case 0:
+                ReadyButton.gameObject.SetActive(true);
+                DeleteButton.gameObject.SetActive(false);
+                ResetButton.gameObject.SetActive(false);
+                break;
+            default:
+                ReadyButton.gameObject.SetActive(true);
+                DeleteButton.gameObject.SetActive(true);
+                ResetButton.gameObject.SetActive(true);
+                break;
+
+        }
+
+        for (int i = 0; i < samples.Count; i++) 
+        {
+            if (i + 1 <= Level)
+            {
+                samples[i].SetActive(true);
+            }
+            else
+            {
+                samples[i].SetActive(false);
+            }
+        }
     }
 
 }
