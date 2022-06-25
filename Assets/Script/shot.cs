@@ -109,6 +109,8 @@ public class shot : MonoBehaviour
            Mode.AddComboCount();
 
             animator.SetTrigger("Active");
+
+            Target.Instance.SetTargetMaterial();
         }
     }
 }

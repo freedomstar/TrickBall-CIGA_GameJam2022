@@ -194,6 +194,8 @@ public class GameMode : MonoBehaviour
     {
         ComboCount = 0;
         ComboText.text = ComboCount.ToString();
+
+        Target.Instance.SetTargetMaterial();
     }
 
     public void CloseShotballTrail() 

@@ -5,10 +5,18 @@ using UnityEngine;
 public class Target : MonoBehaviour
 {
     public GameMode Mode;
+    public static Target Instance;
+
+    public Material normalMat;
+    public Material disbaledMat;
+
+    public MeshRenderer mr;
+
     // Start is called before the first frame update
     void Start()
     {
-        
+        Instance = this;
+        SetTargetMaterial();
     }
 
     // Update is called once per frame
@@ -23,6 +31,18 @@ public class Target : MonoBehaviour
         {
             Mode.SwitchOverState();
 
+        }
+    }
+
+    public void SetTargetMaterial()
+    {
+        if (Mode.IsFinshedCombo())
+        {
+            mr.sharedMaterial = normalMat;
+        }
+        else
+        {
+            mr.sharedMaterial = disbaledMat;
         }
     }
 }
