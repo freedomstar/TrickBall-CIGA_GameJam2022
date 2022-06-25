@@ -13,6 +13,8 @@ public class Obstacle : MonoBehaviour
 
     private bool bRota = false;
 
+    public float AddNewForce = 0;
+
     const float deflastMouseXpos = -1234565.0f;
 
     public ObstacleSample Sample;
@@ -35,6 +37,7 @@ public class Obstacle : MonoBehaviour
             {
                 Ray ray = Camera.main.ScreenPointToRay(Input.mousePosition);
                 RaycastHit hitinfo;
+
                 if (Physics.Raycast(ray, out hitinfo) || (bHole && !bRota))
                 {
                     if (((hitinfo.collider != null && hitinfo.collider.gameObject == this.gameObject) || bHole) && !bRota)
@@ -72,6 +75,14 @@ public class Obstacle : MonoBehaviour
         {
             float offest = (mousePos.x - lastMouseXpos) * rotaScale;
             transform.rotation = Quaternion.Euler(this.transform.rotation.eulerAngles.x, this.transform.rotation.eulerAngles.y, this.transform.rotation.eulerAngles.z + offest);
+        }
+    }
+
+    private void OnCollisionEnter(Collision collision)
+    {
+        if (collision.gameObject == Mode.Shotball && AddNewForce > 0) 
+        {
+            Mode.Shotball.GetComponent<Rigidbody>().AddForce(collision.relativeVelocity.normalized * AddNewForce);
         }
     }
 

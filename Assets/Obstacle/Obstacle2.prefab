@@ -100,6 +100,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   Mode: {fileID: 0}
   rotaScale: 0.01
+  AddNewForce: 2000
   Sample: {fileID: 0}
 --- !u!64 &-2800338317336325058
 MeshCollider:

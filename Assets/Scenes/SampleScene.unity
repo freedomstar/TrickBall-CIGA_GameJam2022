@@ -159,8 +159,8 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 0}
   m_AnchorMax: {x: 0, y: 0}
-  m_AnchoredPosition: {x: 100, y: 120}
-  m_SizeDelta: {x: 160, y: 50}
+  m_AnchoredPosition: {x: 136.4, y: 164.9}
+  m_SizeDelta: {x: 190, y: 65}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &175510271
 MonoBehaviour:
@@ -1313,6 +1313,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   Level: 0
+  Congrat: {fileID: 1098812647}
   Shotball: {fileID: 1408570444}
   pickObject: {fileID: 0}
   RayObject: {fileID: 0}
@@ -1338,6 +1339,7 @@ MonoBehaviour:
   ComboCount: 0
   TargetComboScale: 5
   LevelWallCheckCollided: 3
+  WinAnimationTime: 3
 --- !u!4 &778383488
 Transform:
   m_ObjectHideFlags: 0
@@ -2364,8 +2366,8 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 0}
   m_AnchorMax: {x: 0, y: 0}
-  m_AnchoredPosition: {x: 100, y: 220}
-  m_SizeDelta: {x: 160, y: 50}
+  m_AnchoredPosition: {x: 136.40002, y: 296.5}
+  m_SizeDelta: {x: 190, y: 65}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &1335992039
 MonoBehaviour:
@@ -2592,6 +2594,7 @@ MonoBehaviour:
   MaxSpeed: 0
   ShakeLimtedSpeed: 5
   ForceScale: 300
+  maxLinearVelocity: 300
 --- !u!96 &1408570451
 TrailRenderer:
   serializedVersion: 3
@@ -3549,8 +3552,8 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 0}
   m_AnchorMax: {x: 0, y: 0}
-  m_AnchoredPosition: {x: 100, y: 170}
-  m_SizeDelta: {x: 160, y: 50}
+  m_AnchoredPosition: {x: 136.40002, y: 230.70001}
+  m_SizeDelta: {x: 190, y: 65}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &1812591177
 MonoBehaviour:
@@ -4101,7 +4104,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 8804544483261295838, guid: 55a6cee0b2ade0c4693578780f28ce50, type: 3}
       propertyPath: m_LocalPosition.x
-      value: -26.52
+      value: -26.09
       objectReference: {fileID: 0}
     - target: {fileID: 8804544483261295838, guid: 55a6cee0b2ade0c4693578780f28ce50, type: 3}
       propertyPath: m_LocalPosition.y

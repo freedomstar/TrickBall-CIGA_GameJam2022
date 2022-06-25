@@ -18,7 +18,7 @@ public class Congrats : MonoBehaviour
         
     }
 
-    void DisplayLight()
+    public void DisplayLight()
     {
         foreach (Material mat in materials)
         {
@@ -27,7 +27,7 @@ public class Congrats : MonoBehaviour
         }
     }
 
-    void CloseLight()
+    public void CloseLight()
     {
         foreach (Material mat in materials)
         {

@@ -318,6 +318,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   Mode: {fileID: 0}
   rotaScale: 0.01
+  AddNewForce: 0
   Sample: {fileID: 0}
 --- !u!1 &2897768303606601320
 GameObject:

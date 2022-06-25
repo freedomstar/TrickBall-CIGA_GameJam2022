@@ -46,6 +46,14 @@ public class ObstacleSample : MonoBehaviour
         }
     }
 
+    public void SetGrayState() 
+    {
+        if (Count >= MaxCount)
+        {
+            SetGray();
+        }
+    }
+
     public void SetNormal()
     {
         if (isCapsule)

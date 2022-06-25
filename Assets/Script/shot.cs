@@ -14,6 +14,8 @@ public class shot : MonoBehaviour
 
     public float ForceScale = 500;
 
+    public float maxLinearVelocity = 200;
+
     bool bReadlyShot = false;
 
     Animator animator;
@@ -27,6 +29,7 @@ public class shot : MonoBehaviour
         Rigidbody rigBody = GetComponent<Rigidbody>();
         rigBody.maxAngularVelocity = MaxSpeed;
         animator = GetComponent<Animator>();
+        rigBody.maxLinearVelocity = maxLinearVelocity;
     }
 
     // Update is called once per frameS
@@ -106,7 +109,7 @@ public class shot : MonoBehaviour
             {
                 Camera.main.GetComponent<ShakeCamera>().enabled = true;
             }
-           Mode.AddComboCount();
+            Mode.AddComboCount();
 
             animator.SetTrigger("Active");
 

@@ -16,6 +16,8 @@ public class GameMode : MonoBehaviour
 
     public int Level = 0;
 
+    public Congrats Congrat;
+
     public GameObject Shotball;
 
     public GameObject pickObject;
@@ -54,6 +56,10 @@ public class GameMode : MonoBehaviour
 
     public int LevelWallCheckCollided = 3;
 
+    public float WinAnimationTime = 3.0f;
+
+    float curWinAnimationTime = 0.0f;
+
     // Start is called before the first frame updateS
     void Start()
     {
@@ -68,6 +74,29 @@ public class GameMode : MonoBehaviour
         if (State == GameState.Place)
         {
             RayCheck();
+        }
+        else if (State == GameState.Over)
+        {
+            curWinAnimationTime += Time.deltaTime;
+            if(curWinAnimationTime >= WinAnimationTime)
+            {
+                curWinAnimationTime = 0.0f;
+                if (Congrat != null)
+                {
+                    Congrat.CloseLight();
+                }
+                SwitchPlaceState();
+                if (Shotball != null)
+                {
+                    Shotball.SetActive(true);
+                }
+                ReadyButton.gameObject.SetActive(true);
+                TargetObject.SetActive(true);
+                for (int i = 0; i < Obstacles.Count; i++)
+                {
+                    Obstacles[i].SetActive(true);
+                }
+            }
         }
     }
 
@@ -116,6 +145,10 @@ public class GameMode : MonoBehaviour
         CloseShotballTrail();
         CheckQuadColor();
         SetLevelConfig();
+        for (int i = 0; i < samples.Count; i++)
+        {
+            samples[i].GetComponent<ObstacleSample>().SetGrayState();
+        }
     }
 
     public void SwitchReadyState()
@@ -132,6 +165,10 @@ public class GameMode : MonoBehaviour
         }
         CheckQuadColor();
         SetLevelConfig();
+        for (int i = 0; i < samples.Count; i++)
+        {
+            samples[i].GetComponent<ObstacleSample>().SetGrayState();
+        }
     }
 
     public void DestroyPickObject()
@@ -212,7 +249,7 @@ public class GameMode : MonoBehaviour
     {
         Shotball.GetComponent<TrailRenderer>().enabled = false;
     }
-
+    
     public void SwitchOverState() 
     {
         State = GameState.Over;
@@ -220,12 +257,31 @@ public class GameMode : MonoBehaviour
         TargetCombo = Level * TargetComboScale;
         LevelText.text = Level.ToString();
         TargetComboText.text = TargetCombo.ToString();
-        RandomTargetPos();
+        //RandomTargetPos();
         ResetWallbCollided();
         CheckQuadColor();
         ResetComboCount();
-        SetLevelConfig();
-        SwitchPlaceState();
+        //  SetLevelConfig();
+        if (Shotball != null)
+        {
+            Shotball.SetActive(false);
+        }
+        if (Congrat != null)
+        {
+            Congrat.DisplayLight();
+        }
+        ReadyButton.gameObject.SetActive(false);
+        TargetObject.SetActive(false);
+        for (int i = 0; i < samples.Count; i++)
+        {
+            samples[i].SetActive(false);
+        }
+        DeleteButton.gameObject.SetActive(false);
+        ResetButton.gameObject.SetActive(false);
+        for (int i = 0; i < Obstacles.Count; i++)
+        {
+            Obstacles[i].SetActive(false);
+        }
     }
 
     public bool IsFinshedCombo() 
