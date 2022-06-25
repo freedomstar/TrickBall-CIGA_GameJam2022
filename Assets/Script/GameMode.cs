@@ -140,6 +140,7 @@ public class GameMode : MonoBehaviour
         {
             Obstacles.Remove(pickObject);
             pickObject.GetComponent<Obstacle>().Sample.Count--;
+            pickObject.GetComponent<Obstacle>().Sample.SetNormal();
             Destroy(pickObject);
             pickObject = null;
         }

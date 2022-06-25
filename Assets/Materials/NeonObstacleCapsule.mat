@@ -7,7 +7,7 @@ Material:
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_Name: NeonObstacle 1
+  m_Name: NeonObstacleCapsule
   m_Shader: {fileID: -6465566751694194690, guid: 54e5938d6e9b5fb439db2df6f43acbdd, type: 3}
   m_Parent: {fileID: 0}
   m_ModifiedSerializedProperties: 0
