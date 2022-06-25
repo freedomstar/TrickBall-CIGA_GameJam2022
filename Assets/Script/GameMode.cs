@@ -212,6 +212,7 @@ public class GameMode : MonoBehaviour
         SwitchPlaceState();
         ResetWallbCollided();
         CheckQuadColor();
+        ResetComboCount();
     }
 
     public bool IsFinshedCombo() 
