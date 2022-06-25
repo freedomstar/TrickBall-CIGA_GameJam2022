@@ -17,10 +17,12 @@ public class PictureNumText : MonoBehaviour
     public float Typos = -18;
 
 
+    Animator anim;
+
     // Start is called before the first frame update
     void Start()
     {
-        
+        anim = GetComponent<Animator>();
     }
 
     // Update is called once per frame
@@ -51,6 +53,11 @@ public class PictureNumText : MonoBehaviour
             int T2Num = Num % 10;
             T1.texture = Nums[T1Num];
             T2.texture = Nums[T2Num];
+        }
+
+        if (anim)
+        {
+            anim.SetTrigger("Active");
         }
     }
 }
