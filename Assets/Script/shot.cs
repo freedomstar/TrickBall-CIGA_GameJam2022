@@ -10,6 +10,8 @@ public class shot : MonoBehaviour
 
     public float MaxSpeed;
 
+    public float ShakeLimtedSpeed = 50;
+
     public float ForceScale = 500;
 
     bool bReadlyShot = false;
@@ -84,7 +86,12 @@ public class shot : MonoBehaviour
         GameMode Mode = gameMode.GetComponent<GameMode>();
         if (Mode.State == GameMode.GameState.Shoting)
         {
-            Mode.AddComboCount();
+            Rigidbody rigBody = GetComponent<Rigidbody>();
+            if (rigBody.velocity.x>ShakeLimtedSpeed || rigBody.velocity.y> ShakeLimtedSpeed)
+            {
+                Camera.main.GetComponent<ShakeCamera>().enabled = true;
+            }
+           Mode.AddComboCount();
         }
     }
 }
