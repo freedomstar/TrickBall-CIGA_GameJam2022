@@ -89,7 +89,7 @@ public class shot : MonoBehaviour
                 rigBody.AddForce(ShotVec);
                 Mode.State = GameMode.GameState.Shoting;
                 bReadlyShot = false;
-                GetComponent<TrailRenderer>().enabled = true;
+                SetTrailsEnabled(true);
             }
             else if (Input.GetMouseButton(0)) 
             {
@@ -114,6 +114,15 @@ public class shot : MonoBehaviour
         }
     }
 
+    public void SetTrailsEnabled(bool enable)
+    {
+        var trails = GetComponentsInChildren<TrailRenderer>();
+        foreach (var trail in trails)
+        {
+            trail.enabled = enable;
+        }
+    }
+
     public void ResetPos()
     {
         Rigidbody rigBody = GetComponent<Rigidbody>();
@@ -133,7 +142,10 @@ public class shot : MonoBehaviour
             }
             Mode.AddComboCount();
 
-            animator.SetTrigger("Active");
+            if (animator)
+            {
+                animator.SetTrigger("Active");
+            }
 
             Target.Instance.SetTargetMaterial();
         }

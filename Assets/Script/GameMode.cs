@@ -78,6 +78,7 @@ public class GameMode : MonoBehaviour
     // Start is called before the first frame updateS
     void Start()
     {
+        Shotball = GameObject.FindGameObjectWithTag("ShotBall");
         CloseWallsCollision();
         RandomTargetPos();
         SetLevelConfig();
@@ -338,7 +339,7 @@ public class GameMode : MonoBehaviour
 
     public void CloseShotballTrail() 
     {
-        Shotball.GetComponent<TrailRenderer>().enabled = false;
+        Shotball.GetComponent<shot>().SetTrailsEnabled(false);
     }
     
     public void SwitchOverState() 
