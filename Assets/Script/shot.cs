@@ -35,7 +35,7 @@ public class shot : MonoBehaviour
         if (Mode.State == GameMode.GameState.Ready)
         {
             float ypos = Mathf.Clamp(mousePos.y, -14.0f, 17.0f);
-            transform.position = new Vector3(transform.position.x, ypos, transform.position.z);
+            transform.position = new Vector3(InitPos.x, ypos, InitPos.z);
             if (Input.GetMouseButtonDown(0))
             {
                 Mode.State = GameMode.GameState.Shot;

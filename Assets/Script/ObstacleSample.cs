@@ -23,7 +23,7 @@ public class ObstacleSample : MonoBehaviour
             {
                 Vector3 mousePos = new Vector3(Input.mousePosition.x, Input.mousePosition.y, Mathf.Abs(Camera.main.transform.position.z));
                 mousePos = Camera.main.ScreenToWorldPoint(mousePos);
-                Mode.pickObject = GameObject.Instantiate(Obstacle, mousePos, Quaternion.identity);
+                Mode.pickObject = GameObject.Instantiate(Obstacle, mousePos+new Vector3(0.5f,0.5f,0.1f), Quaternion.identity);
                 Mode.pickObject.GetComponent<Obstacle>().Sample = this;
                 Mode.pickObject.GetComponent<Obstacle>().Mode = Mode;
                 Mode.State = GameMode.GameState.Place;
