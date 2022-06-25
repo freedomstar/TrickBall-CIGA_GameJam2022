@@ -20,11 +20,25 @@ public class Congrats : MonoBehaviour
 
     public void DisplayLight()
     {
+        DisplayLightImpl();
+        StartCoroutine(MyCoroutine());
+    }
+
+    void DisplayLightImpl()
+    {
         foreach (Material mat in materials)
         {
             mat.color = Color.white;
             mat.EnableKeyword("_EMISSION");
         }
+    }
+
+    IEnumerator MyCoroutine()
+    {
+        yield return new WaitForSeconds(0.5f);
+        CloseLight();
+        yield return new WaitForSeconds(0.5f);
+        DisplayLightImpl();
     }
 
     public void CloseLight()
