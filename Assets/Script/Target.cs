@@ -19,7 +19,7 @@ public class Target : MonoBehaviour
 
     private void OnTriggerEnter(Collider other)
     {
-        if (other.gameObject && other.gameObject.tag == "ShotBall" && Mode)
+        if (other.gameObject && other.gameObject.tag == "ShotBall" && Mode && Mode.IsFinshedCombo() && Mode.CheckWallCollided())
         {
             Mode.SwitchOverState();
         }

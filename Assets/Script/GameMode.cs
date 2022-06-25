@@ -21,7 +21,9 @@ public class GameMode : MonoBehaviour
     public GameObject pickObject;
 
     public GameObject RayObject;
-    
+
+    public GameObject TargetObject;
+
     public List<GameObject> Walls;
 
     public List<GameObject> Obstacles;
@@ -30,12 +32,19 @@ public class GameMode : MonoBehaviour
 
     public Text ComboText;
 
-    int ComboCount = 0;
+    public int ComboCount = 0;
+
+    int TargetCombo = 0;
+
+    public int TargetComboScale = 10;
+
+    public int LevelWallCheckCollided = 3;
 
     // Start is called before the first frame updateS
     void Start()
     {
         CloseWallsCollision();
+        RandomTargetPos();
     }
 
     // Update is called once per frame
@@ -90,17 +99,22 @@ public class GameMode : MonoBehaviour
         {
             Shotball.GetComponent<shot>().ResetPos();
         }
-
+        ResetWallbCollided();
         CloseShotballTrail();
     }
 
     public void SwitchReadyState()
     {
+        ResetWallbCollided();
         SwitchCollider(true);
         State = GameState.Ready;
         pickObject = null;
         ResetComboCount();
         CloseShotballTrail();
+        if (Shotball != null)
+        {
+            Shotball.GetComponent<shot>().ResetPos();
+        }
     }
 
     public void DestroyPickObject()
@@ -126,6 +140,40 @@ public class GameMode : MonoBehaviour
         }
     }
 
+    private void ResetWallbCollided()
+    {
+        for (int i = 0; i < Walls.Count; i++)
+        {
+            Wall wall = Walls[i].GetComponent<Wall>();
+            if (wall) 
+            {
+                wall.bCollided = false;
+                wall.ResetSetColor(Level >= LevelWallCheckCollided);               
+            }
+        }
+    }
+
+    private bool bAllWallbCollided()
+    {
+        for (int i = 0; i < Walls.Count; i++)
+        {
+            if (!Walls[i].GetComponent<Wall>().bCollided)
+            {
+                return false;
+            }
+        }
+        return true;
+    }
+
+    public bool CheckWallCollided() 
+    {
+        if (Level < LevelWallCheckCollided)
+        {
+            return true;
+        }
+        return bAllWallbCollided();
+    }
+
     public void AddComboCount() 
     {
         ComboCount++;
@@ -147,6 +195,24 @@ public class GameMode : MonoBehaviour
     {
         State = GameState.Over;
         Level++;
+        TargetCombo = Level * TargetComboScale;
+        RandomTargetPos();
         SwitchPlaceState();
+        ResetWallbCollided();
+    }
+
+    public bool IsFinshedCombo() 
+    {
+        return ComboCount >= TargetCombo;
+    }
+
+    public void RandomTargetPos() 
+    {
+        float x = Random.Range(0, 40);
+        float y = Random.Range(15, -13);
+        if (TargetObject)
+        {
+            TargetObject.transform.position = new Vector3(x, y, 0);
+        }
     }
 }

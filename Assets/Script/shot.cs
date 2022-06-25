@@ -64,7 +64,11 @@ public class shot : MonoBehaviour
         }
         else if (Mode.State == GameMode.GameState.Shoting)
         {
-
+            Rigidbody rigBody = GetComponent<Rigidbody>();
+            if (rigBody.velocity.Equals(Vector3.zero) && Mode.ComboCount >= 1) 
+            {
+                Mode.SwitchReadyState();
+            }
         }
     }
 
