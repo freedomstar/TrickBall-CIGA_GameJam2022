@@ -113,11 +113,11 @@ public class GameMode : MonoBehaviour
                 {
                     if (hitinfo.collider.gameObject.tag == tag)
                     {
-                        pickObject = hitinfo.collider.gameObject;
+                        SetPickObject(hitinfo.collider.gameObject);
                     }
                     else
                     {
-                        pickObject = null;
+                        ClearPickObject();
                     }
                     RayObject = hitinfo.collider.gameObject;
                 }
@@ -151,12 +151,30 @@ public class GameMode : MonoBehaviour
         }
     }
 
+    public void SetPickObject(GameObject obj)
+    {
+        ClearPickObject();
+        pickObject = obj;
+        var animator = pickObject.GetComponent<Animator>();
+        animator.SetBool("Highlight", true);
+    }
+
+    void ClearPickObject()
+    {
+        if (pickObject != null)
+        {
+            var lastAnim = pickObject.GetComponent<Animator>();
+            lastAnim.SetBool("Highlight", false);
+        }
+        pickObject = null;
+    }
+
     public void SwitchReadyState()
     {
         ResetWallbCollided();
         SwitchCollider(true);
         State = GameState.Ready;
-        pickObject = null;
+        ClearPickObject();
         ResetComboCount();
         CloseShotballTrail();
         if (Shotball != null)

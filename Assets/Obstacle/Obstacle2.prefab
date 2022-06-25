@@ -13,6 +13,7 @@ GameObject:
   - component: {fileID: 5448335297483630435}
   - component: {fileID: 5919922039451278490}
   - component: {fileID: -2800338317336325058}
+  - component: {fileID: 2029948000454626071}
   m_Layer: 0
   m_Name: Obstacle2
   m_TagString: Obstacle
@@ -34,7 +35,7 @@ Transform:
   m_Children:
   - {fileID: 4151926932149680985}
   m_Father: {fileID: 0}
-  m_RootOrder: 15
+  m_RootOrder: 17
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!33 &7816163591029724073
 MeshFilter:
@@ -64,7 +65,7 @@ MeshRenderer:
   m_RenderingLayerMask: 1
   m_RendererPriority: 0
   m_Materials:
-  - {fileID: 2100000, guid: 70772d5905a56a04b9755eec866c6f27, type: 2}
+  - {fileID: 2100000, guid: 540d1493afcf4064bb4ef7d741c4ac05, type: 2}
   m_StaticBatchInfo:
     firstSubMesh: 0
     subMeshCount: 0
@@ -116,6 +117,26 @@ MeshCollider:
   m_Convex: 1
   m_CookingOptions: 30
   m_Mesh: {fileID: -5495902117074765545, guid: 126f22b698495aa448c828073d766710, type: 3}
+--- !u!95 &2029948000454626071
+Animator:
+  serializedVersion: 4
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 5808689581588235958}
+  m_Enabled: 1
+  m_Avatar: {fileID: 0}
+  m_Controller: {fileID: 9100000, guid: a8b25f0d32a7e5a4dab68dfb615b1fb6, type: 2}
+  m_CullingMode: 0
+  m_UpdateMode: 0
+  m_ApplyRootMotion: 0
+  m_LinearVelocityBlending: 0
+  m_StabilizeFeet: 0
+  m_WarningMessage: 
+  m_HasTransformHierarchy: 1
+  m_AllowConstantClipSamplingOptimization: 1
+  m_KeepAnimatorControllerStateOnDisable: 0
 --- !u!1001 &4473238750424849586
 PrefabInstance:
   m_ObjectHideFlags: 0

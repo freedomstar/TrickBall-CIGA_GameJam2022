@@ -31,11 +31,12 @@ public class ObstacleSample : MonoBehaviour
             {
                 Vector3 mousePos = new Vector3(Input.mousePosition.x, Input.mousePosition.y, Mathf.Abs(Camera.main.transform.position.z));
                 mousePos = Camera.main.ScreenToWorldPoint(mousePos);
-                Mode.pickObject = GameObject.Instantiate(Obstacle, mousePos+new Vector3(0.5f,0.5f,transform.position.z), Quaternion.identity);
-                Mode.pickObject.GetComponent<Obstacle>().Sample = this;
-                Mode.pickObject.GetComponent<Obstacle>().Mode = Mode;
+                var obj = GameObject.Instantiate(Obstacle, mousePos + new Vector3(0.5f, 0.5f, transform.position.z), Quaternion.identity);
+                obj.GetComponent<Obstacle>().Mode = Mode;
+                obj.GetComponent<Obstacle>().Sample = this;
+                Mode.SetPickObject(obj);
                 Mode.State = GameMode.GameState.Place;
-                Mode.Obstacles.Add(Mode.pickObject);
+                Mode.Obstacles.Add(obj);
                 Count++;
 
                 if (Count == MaxCount)
