@@ -10,6 +10,8 @@ public class shot : MonoBehaviour
 
     public float MaxSpeed;
 
+    public float ShakeLimtedSpeed = 50;
+
     public float ForceScale = 500;
 
     bool bReadlyShot = false;
@@ -36,7 +38,7 @@ public class shot : MonoBehaviour
         if (Mode.State == GameMode.GameState.Ready)
         {
             float ypos = Mathf.Clamp(mousePos.y, -14.0f, 17.0f);
-            transform.position = new Vector3(transform.position.x, ypos, transform.position.z);
+            transform.position = new Vector3(InitPos.x, ypos, InitPos.z);
             if (Input.GetMouseButtonDown(0))
             {
                 Mode.State = GameMode.GameState.Shot;
@@ -87,7 +89,12 @@ public class shot : MonoBehaviour
         GameMode Mode = gameMode.GetComponent<GameMode>();
         if (Mode.State == GameMode.GameState.Shoting)
         {
-            Mode.AddComboCount();
+            Rigidbody rigBody = GetComponent<Rigidbody>();
+            if (rigBody.velocity.x>ShakeLimtedSpeed || rigBody.velocity.y> ShakeLimtedSpeed)
+            {
+                Camera.main.GetComponent<ShakeCamera>().enabled = true;
+            }
+           Mode.AddComboCount();
 
             animator.SetTrigger("Active");
         }
