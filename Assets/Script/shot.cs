@@ -14,6 +14,8 @@ public class shot : MonoBehaviour
 
     bool bReadlyShot = false;
 
+    Animator animator;
+
     Vector3 InitPos;
 
     // Start is called before the first frame update
@@ -22,6 +24,7 @@ public class shot : MonoBehaviour
         InitPos = transform.position;
         Rigidbody rigBody = GetComponent<Rigidbody>();
         rigBody.maxAngularVelocity = MaxSpeed;
+        animator = GetComponent<Animator>();
     }
 
     // Update is called once per frameS
@@ -85,6 +88,8 @@ public class shot : MonoBehaviour
         if (Mode.State == GameMode.GameState.Shoting)
         {
             Mode.AddComboCount();
+
+            animator.SetTrigger("Active");
         }
     }
 }
