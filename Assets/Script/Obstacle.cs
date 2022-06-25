@@ -39,7 +39,7 @@ public class Obstacle : MonoBehaviour
                 {
                     if (((hitinfo.collider != null && hitinfo.collider.gameObject == this.gameObject) || bHole) && !bRota)
                     {
-                        this.transform.position = mousePos;
+                        this.transform.position = new Vector3(mousePos.x, mousePos.y, transform.position.z);
                         bHole = true;
                     }
                     else
@@ -56,7 +56,6 @@ public class Obstacle : MonoBehaviour
             {
                 bRota = false;
                 bHole = false;
-                transform.position = new Vector3(transform.position.x, transform.position.y, 0);
                 lastMouseXpos = deflastMouseXpos;
             }
         }
