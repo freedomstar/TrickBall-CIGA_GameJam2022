@@ -22,6 +22,7 @@ public class Target : MonoBehaviour
         if (other.gameObject && other.gameObject.tag == "ShotBall" && Mode && Mode.IsFinshedCombo() && Mode.CheckWallCollided())
         {
             Mode.SwitchOverState();
+
         }
     }
 }
