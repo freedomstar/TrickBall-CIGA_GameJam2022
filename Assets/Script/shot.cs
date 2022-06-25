@@ -1,6 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.UI;
 
 public class shot : MonoBehaviour
 {
@@ -18,6 +19,8 @@ public class shot : MonoBehaviour
 
     bool bReadlyShot = false;
 
+    public GameObject ArrowImage;
+
     Animator animator;
 
     Vector3 InitPos;
@@ -25,6 +28,7 @@ public class shot : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
+        ArrowImage.SetActive(false);
         InitPos = transform.position;
         Rigidbody rigBody = GetComponent<Rigidbody>();
         rigBody.maxAngularVelocity = MaxSpeed;
@@ -35,6 +39,7 @@ public class shot : MonoBehaviour
     // Update is called once per frameS
     void Update()
     {
+
         GameMode Mode = gameMode.GetComponent<GameMode>();
         Vector3 mousePos = new Vector3(Input.mousePosition.x, Input.mousePosition.y, Mathf.Abs(Camera.main.transform.position.z));
         mousePos = Camera.main.ScreenToWorldPoint(mousePos);
@@ -53,15 +58,20 @@ public class shot : MonoBehaviour
             ShotVec.z = 0;
             if (Input.GetMouseButtonDown(0))
             {
+                ArrowImage.SetActive(true);
                 bReadlyShot = true;
+                Vector3 scpos = Camera.main.WorldToScreenPoint(transform.position);
+                ArrowImage.GetComponent<RectTransform>().position = scpos;
             }
             else if (Input.GetMouseButtonUp(0) && bReadlyShot)
             {
+                ArrowImage.SetActive(false);
                 Rigidbody rigBody = GetComponent<Rigidbody>();
                 rigBody.constraints = RigidbodyConstraints.FreezePositionZ | RigidbodyConstraints.FreezeRotationZ;
                 ShotVec = ShotVec * ForceScale;
                 float ox = ShotVec.x;
                 float yxScale = ShotVec.y / ShotVec.x;
+
                 ShotVec.x = Mathf.Max(ShotVec.x, -MaxForce);
                 ShotVec.x = Mathf.Min(ShotVec.x, MaxForce);
                 if (ShotVec.x != ox)
@@ -81,9 +91,21 @@ public class shot : MonoBehaviour
                 bReadlyShot = false;
                 GetComponent<TrailRenderer>().enabled = true;
             }
+            else if (Input.GetMouseButton(0)) 
+            {
+                Vector3 scpos = Camera.main.WorldToScreenPoint(transform.position);
+                float Angle = Vector3.Angle(Vector3.right, Input.mousePosition - scpos);
+                if (Vector3.Cross(Vector3.right, Input.mousePosition - scpos).z < 0)
+                {
+                    Angle = -Angle;
+                }
+                ArrowImage.GetComponent<RectTransform>().rotation = Quaternion.Euler(0, 0, Angle);
+                ArrowImage.GetComponent<RectTransform>().localScale = new Vector3(Mathf.Clamp(Vector3.Distance(Input.mousePosition, scpos) / 120, 0.5f, 3f), 1,1);
+            }
         }
         else if (Mode.State == GameMode.GameState.Shoting)
         {
+            ArrowImage.SetActive(false);
             Rigidbody rigBody = GetComponent<Rigidbody>();
             if (rigBody.velocity.Equals(Vector3.zero) && Mode.ComboCount >= 1) 
             {

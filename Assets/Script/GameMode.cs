@@ -14,6 +14,21 @@ public class GameMode : MonoBehaviour
         Over,
     };
 
+    public RawImage starImage;
+
+    public Texture2D max;
+
+    public Texture2D Nomax;
+
+
+    public PictureNumText curPictureNumText;
+
+    public PictureNumText curMaxPictureNumText;
+
+    public PictureNumText TargetPictureNumText;
+
+    public Slider targetSlider;
+
     public int Level = 0;
 
     public Congrats Congrat;
@@ -149,7 +164,29 @@ public class GameMode : MonoBehaviour
         {
             samples[i].GetComponent<ObstacleSample>().SetGrayState();
         }
+
+        if (TargetCombo == 0)
+        {
+            targetSlider.value = 1;
+            curPictureNumText.gameObject.SetActive(false);
+            curMaxPictureNumText.gameObject.SetActive(true);
+            curPictureNumText.SetNum(0);
+            curMaxPictureNumText.SetNum(0);
+            TargetPictureNumText.SetNum(TargetCombo);
+            starImage.texture = max;
+        }
+        else
+        {
+            targetSlider.value = 0;
+            curPictureNumText.gameObject.SetActive(true);
+            curMaxPictureNumText.gameObject.SetActive(false);
+            curPictureNumText.SetNum(0);
+            curMaxPictureNumText.SetNum(0);
+            TargetPictureNumText.SetNum(TargetCombo);
+            starImage.texture = Nomax;
+        }
     }
+
 
     public void SetPickObject(GameObject obj)
     {
@@ -186,6 +223,26 @@ public class GameMode : MonoBehaviour
         for (int i = 0; i < samples.Count; i++)
         {
             samples[i].GetComponent<ObstacleSample>().SetGrayState();
+        }
+        if (TargetCombo == 0)
+        {
+            targetSlider.value = 1;
+            curPictureNumText.gameObject.SetActive(false);
+            curMaxPictureNumText.gameObject.SetActive(true);
+            curPictureNumText.SetNum(0);
+            curMaxPictureNumText.SetNum(0);
+            TargetPictureNumText.SetNum(TargetCombo);
+            starImage.texture = max;
+        }
+        else
+        {
+            targetSlider.value = 0;
+            curPictureNumText.gameObject.SetActive(true);
+            curMaxPictureNumText.gameObject.SetActive(false);
+            curPictureNumText.SetNum(0);
+            curMaxPictureNumText.SetNum(0);
+            TargetPictureNumText.SetNum(TargetCombo);
+            starImage.texture = Nomax;
         }
     }
 
@@ -252,7 +309,23 @@ public class GameMode : MonoBehaviour
     {
         ComboCount++;
         ComboText.text = ComboCount.ToString();
+        if (ComboCount >= TargetCombo)
+        {
+            curMaxPictureNumText.gameObject.SetActive(true);
+            curPictureNumText.gameObject.SetActive(false);
+            curMaxPictureNumText.SetNum(ComboCount);
+            starImage.texture = max;
+        }
+        else 
+        {
+            curPictureNumText.gameObject.SetActive(true);
+            curMaxPictureNumText.gameObject.SetActive(false);
+            curPictureNumText.SetNum(ComboCount);
+            starImage.texture = Nomax;
+        }
+       
         CheckQuadColor();
+        targetSlider.value = (float)((float)ComboCount / (float)TargetCombo);
     }
 
     void ResetComboCount()
