@@ -20,6 +20,7 @@ public class GameMode : MonoBehaviour
 
     public Texture2D Nomax;
 
+    public PictureNumText LevelPictureNumText;
 
     public PictureNumText curPictureNumText;
 
@@ -84,6 +85,7 @@ public class GameMode : MonoBehaviour
         SetLevelConfig();
         curPictureNumText.SetNum(0);
         curMaxPictureNumText.SetNum(0);
+        LevelPictureNumText.SetNum(1);
     }
 
     // Update is called once per frame
@@ -189,6 +191,10 @@ public class GameMode : MonoBehaviour
             TargetPictureNumText.SetNum(TargetCombo);
             starImage.texture = Nomax;
         }
+        if (Congrat != null)
+        {
+            Congrat.CloseLight();
+        }
     }
 
 
@@ -248,6 +254,10 @@ public class GameMode : MonoBehaviour
             curMaxPictureNumText.SetNum(0);
             TargetPictureNumText.SetNum(TargetCombo);
             starImage.texture = Nomax;
+        }
+        if (Congrat != null)
+        {
+            Congrat.CloseLight();
         }
     }
 
@@ -352,6 +362,7 @@ public class GameMode : MonoBehaviour
         Level++;
         TargetCombo = Level * TargetComboScale;
         LevelText.text = Level.ToString();
+        LevelPictureNumText.SetNum(Level+1);
         TargetComboText.text = TargetCombo.ToString();
         //RandomTargetPos();
         ResetWallbCollided();
