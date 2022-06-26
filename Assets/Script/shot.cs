@@ -2,6 +2,8 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
+using UnityEngine.VFX;
+
 
 public class shot : MonoBehaviour
 {
@@ -19,6 +21,42 @@ public class shot : MonoBehaviour
 
     bool bReadlyShot = false;
 
+    [ColorUsage(true,true)]
+    public Color MaxSpeedColor1;
+
+    [ColorUsage(true, true)]
+    public Color MaxSpeedColor2;
+
+    [ColorUsage(true, true)]
+    public Color MaxSpeedColor3;
+
+    [ColorUsage(true, true)]
+    public Color MaxSpeedColor4;
+
+    [ColorUsage(true, true)]
+    public Color MaxSpeedColor5;
+
+    [ColorUsage(true, true)]
+    public Color MaxSpeedColor6;
+
+    [ColorUsage(true, true)]
+    public Color MinSpeedColor1;
+
+    [ColorUsage(true, true)]
+    public Color MinSpeedColor2;
+
+    [ColorUsage(true, true)]
+    public Color MinSpeedColor3;
+
+    [ColorUsage(true, true)]
+    public Color MinSpeedColor4;
+
+    [ColorUsage(true, true)]
+    public Color MinSpeedColor5;
+
+    [ColorUsage(true, true)]
+    public Color MinSpeedColor6;
+
     public GameObject ArrowImage;
 
     Animator animator;
@@ -34,12 +72,14 @@ public class shot : MonoBehaviour
         rigBody.maxAngularVelocity = MaxSpeed;
         animator = GetComponent<Animator>();
         rigBody.maxLinearVelocity = maxLinearVelocity;
+
+        SetBallColor();
     }
 
     // Update is called once per frameS
     void Update()
     {
-
+        SetBallColor();
         GameMode Mode = gameMode.GetComponent<GameMode>();
         Vector3 mousePos = new Vector3(Input.mousePosition.x, Input.mousePosition.y, Mathf.Abs(Camera.main.transform.position.z));
         mousePos = Camera.main.ScreenToWorldPoint(mousePos);
@@ -111,6 +151,7 @@ public class shot : MonoBehaviour
             {
                 Mode.SwitchReadyState();
             }
+
         }
     }
 
@@ -148,6 +189,37 @@ public class shot : MonoBehaviour
             }
 
             Target.Instance.SetTargetMaterial();
+        }
+    }
+
+    void SetBallColor() 
+    {
+        Rigidbody rigBody = GetComponent<Rigidbody>();
+        float Lerp = (rigBody.velocity.magnitude / MaxSpeed)*4;
+        var trails = GetComponentsInChildren<TrailRenderer>();
+        foreach (var trail in trails)
+        {
+            List<Material> Materials = new List<Material>();
+            trail.GetMaterials(Materials);
+            for (int i = 0; i < Materials.Count; i++) 
+            {
+                if (trail.gameObject.name == "Trail")
+                {
+                    Materials[i].SetColor("_Color01", Vector4.Lerp( MinSpeedColor1, MaxSpeedColor1, Lerp));
+                    Materials[i].SetColor("_Color02", Vector4.Lerp(MinSpeedColor2, MaxSpeedColor2, Lerp));
+                }
+                else if (trail.gameObject.name == "Trail (1)")
+                {
+                    Materials[i].SetColor("_Color01", Vector4.Lerp(MinSpeedColor3, MaxSpeedColor3, Lerp));
+                    Materials[i].SetColor("_Color02", Vector4.Lerp(MinSpeedColor4, MaxSpeedColor4, Lerp));
+                }
+            }
+        }
+        var Effects = GetComponentsInChildren<VisualEffect>();
+        foreach (var Effect in Effects)
+        {
+            Effect.SetVector4("Color", Vector4.Lerp(MinSpeedColor5, MaxSpeedColor5, Lerp));
+            Effect.SetVector4("ParticlesColor", Vector4.Lerp(MinSpeedColor6, MaxSpeedColor6, Lerp));
         }
     }
 }

@@ -82,6 +82,8 @@ public class GameMode : MonoBehaviour
         CloseWallsCollision();
         RandomTargetPos();
         SetLevelConfig();
+        curPictureNumText.SetNum(0);
+        curMaxPictureNumText.SetNum(0);
     }
 
     // Update is called once per frame
@@ -156,6 +158,7 @@ public class GameMode : MonoBehaviour
         if (Shotball != null)
         {
             Shotball.GetComponent<shot>().ResetPos();
+            Shotball.GetComponent<shot>().ArrowImage.SetActive(false);
         }
         ResetWallbCollided();
         CloseShotballTrail();
@@ -218,6 +221,7 @@ public class GameMode : MonoBehaviour
         if (Shotball != null)
         {
             Shotball.GetComponent<shot>().ResetPos();
+            Shotball.GetComponent<shot>().ArrowImage.SetActive(false);
         }
         CheckQuadColor();
         SetLevelConfig();
