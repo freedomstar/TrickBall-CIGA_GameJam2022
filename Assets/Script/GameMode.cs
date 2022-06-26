@@ -383,6 +383,7 @@ public class GameMode : MonoBehaviour
         {
             samples[i].SetActive(false);
         }
+        RandomTargetPos();
         DeleteButton.gameObject.SetActive(false);
         ResetButton.gameObject.SetActive(false);
         for (int i = 0; i < Obstacles.Count; i++)
