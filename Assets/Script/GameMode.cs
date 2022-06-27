@@ -14,6 +14,11 @@ public class GameMode : MonoBehaviour
         Over,
     };
 
+    public AudioSource WinSound;
+
+    public AudioSource BgmSound;
+
+
     public RawImage starImage;
 
     public Texture2D max;
@@ -86,6 +91,7 @@ public class GameMode : MonoBehaviour
         curPictureNumText.SetNum(0);
         curMaxPictureNumText.SetNum(0);
         LevelPictureNumText.SetNum(1);
+        BgmSound.Play();
     }
 
     // Update is called once per frame
@@ -390,6 +396,8 @@ public class GameMode : MonoBehaviour
         {
             Obstacles[i].SetActive(false);
         }
+
+        WinSound.Play();
     }
 
     public bool IsFinshedCombo() 

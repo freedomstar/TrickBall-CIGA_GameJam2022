@@ -59,6 +59,8 @@ public class shot : MonoBehaviour
 
     public GameObject ArrowImage;
 
+    public AudioSource ColliedSound;
+
     Animator animator;
 
     Vector3 InitPos;
@@ -189,7 +191,8 @@ public class shot : MonoBehaviour
             }
 
             Target.Instance.SetTargetMaterial();
-        }
+            ColliedSound.Play();
+        }    
     }
 
     void SetBallColor() 
